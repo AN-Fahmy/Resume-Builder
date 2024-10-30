@@ -1,0 +1,132 @@
+<section>
+  <div class="container-fluid">
+    <div class="row g-2">
+      <div class="col-lg-4">
+        <form [formGroup]="resumeFrom" (ngSubmit)="resumeSubmit()" class="form d-flex flex-column gap-3 shadow-lg p-3">
+          <div>
+            <label for="image">Upload Image</label>
+            <input formControlName="image" type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control">
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Personal Details</h2>
+            <input formControlName="name" class="form-control" type="text" placeholder="Your Name...">
+            <input formControlName="position" class="form-control" type="text" placeholder="Position...">
+            <input formControlName="address" class="form-control" type="text" placeholder="Address..">
+            <input formControlName="email" class="form-control" type="text" placeholder="Email Id...">
+            <input formControlName="phone" class="form-control" type="text" placeholder="Phone Number...">
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Profile</h2>
+            <textarea formControlName="profile" class="form-control" placeholder="Summery Descriptions..."></textarea>
+          </div>
+
+          <div #techskillsInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Tech Skills</h2>
+            <i class="fa-solid fa-plus" (click)="addtechSkills()"></i>
+          </div>
+
+          <div #skillsInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Skills</h2>
+            <i class="fa-solid fa-plus" (click)="addSkills()"></i>
+          </div>
+
+          <div #expierenceInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Expierence</h2>
+            <i class="fa-solid fa-plus" (click)="addExpierence()"></i>
+          </div>
+
+          <div #languageInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Language</h2>
+            <i class="fa-solid fa-plus" (click)="addLanguage()"></i>
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Education</h2>
+            <input formControlName="education" class="form-control" type="text" placeholder="Education Title...">
+            <textarea formControlName="educationDesc" class="form-control" placeholder="Education Descriptions..."></textarea>
+          </div>
+
+          <button class="btn btn-primary">Submit</button>
+          <button class="btn btn-danger" (click)="download()">Download</button>
+
+        </form>
+      </div>
+
+      <div #template class="col-lg-8 bg-white pt-3 ps-0">
+        <div class="d-flex justify-content-center align-items-center my-3">
+          <div class="image-resume px-4">
+            @if(selectedImage){
+              <img [src]="selectedImage" class="rounded-circle position-relative" alt="">
+            }
+          </div>
+          <div class="head-resume w-100 p-4 px-5 rounded-5">
+            <h1>{{name}}</h1>
+            <h3 class="mb-3">{{position}}</h3>
+            <ul class="list-unstyled">
+              <li><i class="fa-solid fa-phone me-2"></i>{{phone}}</li>
+              <li><i class="fa-solid fa-location-dot me-2"></i> {{address}}</li>
+              <li><i class="fa-solid fa-envelope me-2"></i> <a href="mailto:{{email}}">{{email}}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-5">
+            <div class="left-resume p-4">
+              <div class="mb-5">
+                <h2>Summary</h2>
+                <p>{{profile}}</p>
+              </div>
+
+              <div>
+                <h2>Tech Skills</h2>
+                <ul>
+                  @for (techSkill of techSkills; track $index) {
+                    <li>{{techSkill}}</li>
+                  }
+                </ul>
+              </div>
+
+              <div>
+                <h2>Language</h2>
+                <ul>
+                  @for (lang of language; track $index) {
+                    <li>{{lang}}</li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 col-7">
+            <div class="right-resume p-4">
+              <div class="skills">
+                <h2>Skills</h2>
+                <ul>
+                  @for (skill of skills; track $index) {
+                    <li>{{skill}}</li>
+                  }
+                </ul>
+              </div>
+
+              <div class="expierence">
+                <h2>Expierence</h2>
+                <ul>
+                  @for (exp of expierence; track $index) {
+                    <li>{{exp}}</li>
+                  }
+                </ul>
+              </div>
+
+              <div class="education">
+                <h2>Education</h2>
+                <h4>{{education}}</h4>
+                <p>{{educationDesc}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

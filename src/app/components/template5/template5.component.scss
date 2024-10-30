@@ -1,0 +1,32 @@
+*:not(i){
+  font-family: Arial, Helvetica, sans-serif;
+}
+.fa-plus{
+  cursor: pointer;
+}
+p{
+  text-align: justify;
+}
+.head{
+  height: 30px;
+  background-color: #004369;
+}
+h4{
+  font-weight: 700;
+  margin-top: 5px;
+  position: relative;
+  width: fit-content;
+  &::before{
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 110%;
+    height: 50%;
+    width: 700%;
+    background-color: #43baff7a;
+    border-radius: 5px;
+  }
+}
+h5{
+  font-weight: 600;
+}

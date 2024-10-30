@@ -1,0 +1,143 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
+        <form [formGroup]="resumeFrom" (ngSubmit)="resumeSubmit()" class="form d-flex flex-column gap-3 shadow-lg p-3">
+          <div>
+            <label for="image">Upload Image</label>
+            <input formControlName="image" type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control">
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Personal Details</h2>
+            <input formControlName="name" class="form-control" type="text" placeholder="Your Name...">
+            <input formControlName="position" class="form-control" type="text" placeholder="Work Profile...">
+            <input formControlName="address" class="form-control" type="text" placeholder="Address..">
+            <input formControlName="email" class="form-control" type="text" placeholder="Email Id...">
+            <input formControlName="phone" class="form-control" type="text" placeholder="Phone Number...">
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Profile</h2>
+            <textarea formControlName="profile" class="form-control" placeholder="Summery Descriptions..."></textarea>
+          </div>
+
+          <div #referenceInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>References</h2>
+            <i class="fa-solid fa-plus" (click)="addReference()"></i>
+          </div>
+
+          <div #skillsInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Skills</h2>
+            <i class="fa-solid fa-plus" (click)="addSkills()"></i>
+          </div>
+
+          <div #expierenceInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Expierence</h2>
+            <i class="fa-solid fa-plus" (click)="addExpierence()"></i>
+          </div>
+
+          <div #languageInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Language</h2>
+            <i class="fa-solid fa-plus" (click)="addLanguage()"></i>
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Education</h2>
+            <input formControlName="education" class="form-control" type="text" placeholder="Education Title...">
+            <textarea formControlName="educationDesc" class="form-control" placeholder="Education Descriptions..."></textarea>
+          </div>
+
+          <button class="btn btn-primary">Submit</button>
+          <button class="btn btn-danger" (click)="download()">Download</button>
+        </form>
+      </div>
+      <div #template class="col-lg-8 bg-white">
+        <div class="row">
+          <div class="col-4 position-relative text-bg-dark p-4 overflow-hidden">
+            <div class="overlay z-1"></div>
+            <div class="left-resume mt-4 position-relative z-3">
+              <div class="image-resume">
+                @if(selectedImage){
+                  <img [src]="selectedImage" alt="resume">
+                }
+              </div>
+              <div class="resum-info">
+                <div class="contact">
+                  <h3><i class="fa-solid fa-circle-user"></i> Contact Me</h3>
+                  <ul class="list-unstyled py-3">
+                    <li><i class="fa-solid fa-phone me-2"></i>{{phone}}</li>
+                    <li><i class="fa-solid fa-location-dot me-2"></i> {{address}}</li>
+                    <li><i class="fa-solid fa-envelope me-2"></i> <a href="mailto:{{email}}">{{email}}</a></li>
+                  </ul>
+                </div>
+
+                <div class="references my-3">
+                  <h3><i class="fa-solid fa-users"></i> References</h3>
+                  <ul class="list-unstyled py-3">
+                    @for (ref of reference; track $index) {
+                      <li>{{ref}}</li>
+                    }
+                  </ul>
+                </div>
+
+                <div class="education">
+                  <h3><i class="fa-solid fa-users"></i> Education</h3>
+                  <h5>{{education}}</h5>
+                  <p>{{educationDesc}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-8 pe-0 position-relative">
+            <div class="right-resume py-5">
+              <div class="overlay-right"></div>
+
+              <div class="resume-head p-3">
+                <h1 class="m-0">{{name}}
+                  <br>
+                  <span>{{position}}</span>
+                </h1>
+              </div>
+
+              <div class="resume-body p-3">
+                <div class="about">
+                  <h3><i class="fa-solid fa-address-card"></i> About Me</h3>
+                  <p>{{profile}}</p>
+                </div>
+
+                <div class="expierence my-4">
+                  <h3><i class="fa-solid fa-briefcase"></i> Job Expierence</h3>
+                  <ul class="list-unstyled">
+                    @for (exp of expierence; track $index) {
+                      <li>{{exp}}</li>
+                    }
+                  </ul>
+                </div>
+
+                <div class="skills">
+                  <h3><i class="fa-solid fa-briefcase"></i> Skills</h3>
+                  <ul class="list-unstyled">
+                    @for (skill of skills; track $index) {
+                      <li>{{skill}}</li>
+                    }
+                  </ul>
+                </div>
+
+                <div class="language my-3">
+                  <h3><i class="fa-solid fa-language"></i> Language</h3>
+                  <ul class="list-unstyled py-3">
+                    @for (lang of language; track $index) {
+                      <li>{{lang}}</li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

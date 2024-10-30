@@ -1,0 +1,25 @@
+*:not(i){
+  font-family: 'Times New Roman', Times, serif;
+}
+.fa-plus{
+  cursor: pointer;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+h3{
+  position: relative;
+  &::before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 2px;
+    width: 60%;
+    background-color: black;
+  }
+}
+p{
+  text-align: justify;
+}

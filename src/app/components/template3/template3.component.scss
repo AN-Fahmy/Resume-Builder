@@ -1,0 +1,119 @@
+*:not(i){
+  font-family: 'Times New Roman', Times, serif;
+  overflow-wrap: break-word; /* Modern standard */
+
+}
+h3, h1, h5, li{
+  position: relative;
+  &::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -23px;
+    height: 100%;
+    width: 5px;
+    border-radius: 5px;
+    background-color: rgb(255, 196, 0);
+    box-shadow: 0 0 10px rgb(255, 196, 0);
+  }
+}
+li, h5{
+  &::before{
+    top: 50%;
+    height: 5px;
+  }
+}
+li{
+  margin-bottom: 10px;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+.fa-plus{
+  cursor: pointer;
+}
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  border-right: 150px solid transparent;
+  border-left: 150px solid rgb(255, 196, 0);
+  border-top: 150px solid rgb(255, 196, 0);
+  border-bottom: 150px solid transparent;
+}
+.overlay-right{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-right: 50px solid rgb(255, 196, 0);
+  border-left: 50px solid transparent;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid rgb(255, 196, 0);
+}
+
+
+.left-resume {
+  .image-resume{
+    text-align: center;
+    img{
+      border-top-right-radius: 50%;
+      border-top-left-radius: 50%;
+      border-bottom-right-radius: 50%;
+      width: 150px;
+      height: 150px;
+      border: 5px solid #fff;
+    }
+  }
+  .resum-info{
+    padding: 20px;
+    border-left: 2px solid gray;
+    ul{
+      border-bottom: 2px dotted gray;
+    }
+    .references{
+      li{
+        &::before{
+          top: 10px;
+        }
+      }
+    }
+  }
+}
+
+.right-resume{
+  border-left: 3px solid gray;
+  margin-left: 10px;
+  .resume-head{
+    background-color: #ddd;
+    h1{
+      line-height: -30px !important;
+      span{
+        position: relative;
+        bottom: 20px;
+        font-size: 25px;
+        color: #919191;
+      }
+      &::before{
+        left: -20px;
+      }
+    }
+  }
+
+  .resume-body{
+    h3{
+      &::before{
+        left: -20px;
+      }
+    }
+    li{
+      font-weight: 600;
+      &::before{
+        left: -21px;
+        width: 8px;
+        height: 8px;
+      }
+    }
+  }
+}

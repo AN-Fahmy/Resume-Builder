@@ -1,0 +1,119 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
+        <form [formGroup]="resumeFrom" (ngSubmit)="resumeSubmit()" class="form d-flex flex-column gap-3 shadow-lg p-3">
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Personal Details</h2>
+            <input formControlName="name" class="form-control" type="text" placeholder="Your Name...">
+            <input formControlName="position" class="form-control" type="text" placeholder="Work Profile...">
+            <input formControlName="address" class="form-control" type="text" placeholder="Address..">
+            <input formControlName="email" class="form-control" type="text" placeholder="Email Id...">
+            <input formControlName="phone" class="form-control" type="text" placeholder="Phone Number...">
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Profile</h2>
+            <textarea formControlName="profile" class="form-control" placeholder="Summery Descriptions..."></textarea>
+          </div>
+
+          <div #skillsInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Skills</h2>
+            <i class="fa-solid fa-plus" (click)="addSkills()"></i>
+          </div>
+
+          <div #expierenceInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Expierence</h2>
+            <i class="fa-solid fa-plus" (click)="addExpierence()"></i>
+          </div>
+
+          <div #languageInputs class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Language</h2>
+            <i class="fa-solid fa-plus" (click)="addLanguage()"></i>
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-start gap-2">
+            <h2>Education</h2>
+            <input formControlName="education" class="form-control" type="text" placeholder="Education Title...">
+            <textarea formControlName="educationDesc" class="form-control" placeholder="Education Descriptions..."></textarea>
+          </div>
+
+          <button class="btn btn-primary">Submit</button>
+          <button class="btn btn-danger" (click)="download()">Download</button>
+        </form>
+      </div>
+
+
+      <div #template class="col-lg-8 bg-white">
+        <div class="row">
+          <div class="col-12">
+            <div class="resume-header">
+              <div class="head"></div>
+              <div class="row">
+                <div class="col-8">
+                  <div class="personal-head">
+                    <h1 class="border-bottom mt-3">{{name}}</h1>
+                    <div class="border-bottom overflow-hidden">
+                      <h4>Summary</h4>
+                      <p>{{profile}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-8">
+                <div class="experience overflow-hidden">
+                  <h4>Experience</h4>
+                  @for (exp of expierence; track $index) {
+                    <h5>{{exp.head}}</h5>
+                    <ul>
+                      <li>{{exp.desc}}</li>
+                    </ul>
+                  }
+                </div>
+              </div>
+              <div class="col-4 overflow-hidden">
+                <div class="contact">
+                  <h4>Contact</h4>
+                  <ul class="list-unstyled">
+                    <li><span class="fw-bold">Address:</span> {{address}}</li>
+                    <li><span class="fw-bold">Phone:</span> {{phone}}</li>
+                    <li><span class="fw-bold">Email:</span> {{email}}</li>
+                  </ul>
+                </div>
+
+                <div class="education">
+                  <h4>Education</h4>
+                  <h5>{{education}}</h5>
+                  <p>{{educationDesc}}</p>
+                </div>
+
+                <div class="language">
+                  <h4>Language</h4>
+                  <ul>
+                    @for (lang of language; track $index) {
+                      <li>{{lang}}</li>
+                    }
+                  </ul>
+                </div>
+
+                <div class="skills">
+                  <h4>Skills</h4>
+                  <ul>
+                    @for (skill of skills; track $index) {
+                      <li>{{skill}}</li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

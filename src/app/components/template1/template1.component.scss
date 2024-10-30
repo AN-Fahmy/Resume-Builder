@@ -1,0 +1,147 @@
+
+*:not(i){
+  font-family: 'Times New Roman';
+}
+a{
+  color: #fff;
+  text-decoration: none;
+}
+.header-resume{
+  background-color: #EBCBBB;
+  padding: 50px;
+  margin-top: 50px;
+}
+.personal-info{
+  background-color: #6C999A;
+  position: absolute;
+  top: 0;
+  left: 50px;
+  height: 1200px;
+  width: 300px;
+  .image-resume{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    img{
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+  }
+  ul{
+    list-style: none;
+  }
+}
+.presonal-details{
+  width: calc(100% - 338px);
+  float: right;
+  overflow: hidden;
+  .arrow{
+    background-color: black;
+    clip-path: polygon(40% 0, 100% 50%, 33% 100%, 0% 100%, 63% 51%, 0% 0%);
+  }
+}
+.personal-about{
+  .profile-person{
+    overflow-wrap: break-word; /* Modern standard */
+  }
+  li{
+    overflow-wrap: break-word; /* Modern standard */
+  }
+}
+
+.fa-plus{
+  cursor: pointer;
+}
+
+
+@media (max-width:1200px) {
+  h2{
+    font-size: 25px;
+  }
+  .header-resume{
+    .head{
+      h1{
+        font-size: 28px;
+      }
+      h4{
+        font-size: 20px;
+      }
+    }
+  }
+  .personal-info{
+    width: 230px;
+    .image-resume{
+      img{
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+
+  .presonal-details{
+    width: calc(100% - 260px);
+    i{
+      font-size: 25px !important
+    }
+  }
+}
+
+@media (max-width:700px) {
+  h2{
+    font-size: 20px;
+  }
+  .header-resume{
+    .head{
+      h1{
+        font-size: 24px;
+      }
+    }
+  }
+  .personal-info{
+    width: 190px;
+    .image-resume{
+      img{
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+
+  .presonal-details{
+    width: calc(100% - 15rem);
+    i{
+      font-size: 20px !important
+    }
+  }
+}
+
+@media (max-width:595px) {
+  .header-resume{
+    .head{
+      h1{
+        font-size: 22px;
+      }
+      h4{
+        font-size: 18px;
+      }
+    }
+  }
+  .personal-info{
+    width: 190px;
+    .image-resume{
+      img{
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+
+  .presonal-details{
+    width: calc(100% - 15rem);
+    i{
+      font-size: 20px !important
+    }
+  }
+}
