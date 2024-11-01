@@ -1,8 +1,9 @@
-import { Component, ElementRef, inject, RendererFactory2, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, PLATFORM_ID, RendererFactory2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { IData } from '../../core/interfaces/idata';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-template2',
@@ -14,6 +15,7 @@ import { IData } from '../../core/interfaces/idata';
 export class Template2Component {
   private readonly _FormBuilder = inject(FormBuilder)
   private readonly _Renderer2 = inject(RendererFactory2).createRenderer(null,null)
+  private readonly _PLATFORM_ID = inject(PLATFORM_ID)
 
   personeData!:IData
 
@@ -47,54 +49,62 @@ export class Template2Component {
 
   @ViewChild('techskillsInputs') techSkillsContainer!:ElementRef
   addtechSkills(){
-    const newtechSkills = this._Renderer2.createElement('textarea')
-    this._Renderer2.setAttribute(newtechSkills, 'placeholder', 'New Tech Skills...')
-    this._Renderer2.addClass(newtechSkills, 'form-control')
-    this._Renderer2.appendChild(this.techSkillsContainer.nativeElement, newtechSkills)
+    if(isPlatformBrowser(this._PLATFORM_ID)){
+      const newtechSkills = this._Renderer2.createElement('textarea')
+      this._Renderer2.setAttribute(newtechSkills, 'placeholder', 'New Tech Skills...')
+      this._Renderer2.addClass(newtechSkills, 'form-control')
+      this._Renderer2.appendChild(this.techSkillsContainer.nativeElement, newtechSkills)
 
-    newtechSkills.addEventListener('blur', (event: any) => {
-      const value = event.target.value;
-      this.techSkills.push(value);
-    });
+      newtechSkills.addEventListener('blur', (event: any) => {
+        const value = event.target.value;
+        this.techSkills.push(value);
+      });
+    }
   }
 
   @ViewChild('skillsInputs') skillsContainer!:ElementRef
   addSkills(){
-    const newSkill = this._Renderer2.createElement('textarea')
-    this._Renderer2.setAttribute(newSkill, 'placeholder', 'New Skills...')
-    this._Renderer2.addClass(newSkill, 'form-control')
-    this._Renderer2.appendChild(this.skillsContainer.nativeElement, newSkill)
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      const newSkill = this._Renderer2.createElement('textarea')
+      this._Renderer2.setAttribute(newSkill, 'placeholder', 'New Skills...')
+      this._Renderer2.addClass(newSkill, 'form-control')
+      this._Renderer2.appendChild(this.skillsContainer.nativeElement, newSkill)
 
-    newSkill.addEventListener('blur', (event: any) => {
-      const value = event.target.value;
-      this.skills.push(value);
-    });
+      newSkill.addEventListener('blur', (event: any) => {
+        const value = event.target.value;
+        this.skills.push(value);
+      });
+    }
   }
 
   @ViewChild('expierenceInputs') expierenceContainer!:ElementRef
   addExpierence(){
-    const newExpierence = this._Renderer2.createElement('textarea')
-    this._Renderer2.setAttribute(newExpierence, 'placeholder', 'New Expierence...')
-    this._Renderer2.addClass(newExpierence, 'form-control')
-    this._Renderer2.appendChild(this.expierenceContainer.nativeElement, newExpierence)
+    if(isPlatformBrowser(this._PLATFORM_ID)){
+      const newExpierence = this._Renderer2.createElement('textarea')
+      this._Renderer2.setAttribute(newExpierence, 'placeholder', 'New Expierence...')
+      this._Renderer2.addClass(newExpierence, 'form-control')
+      this._Renderer2.appendChild(this.expierenceContainer.nativeElement, newExpierence)
 
-    newExpierence.addEventListener('blur', (event:any) =>{
-      const value = event.target.value
-      this.expierence.push(value)
-    })
+      newExpierence.addEventListener('blur', (event:any) =>{
+        const value = event.target.value
+        this.expierence.push(value)
+      })
+    }
   }
 
   @ViewChild('languageInputs') languageContainer!:ElementRef
   addLanguage(){
-    const newLanguage = this._Renderer2.createElement('textarea')
-    this._Renderer2.setAttribute(newLanguage, 'placeholder', 'New Language...')
-    this._Renderer2.addClass(newLanguage, 'form-control')
-    this._Renderer2.appendChild(this.languageContainer.nativeElement, newLanguage)
+    if(isPlatformBrowser(this._PLATFORM_ID)){
+      const newLanguage = this._Renderer2.createElement('textarea')
+      this._Renderer2.setAttribute(newLanguage, 'placeholder', 'New Language...')
+      this._Renderer2.addClass(newLanguage, 'form-control')
+      this._Renderer2.appendChild(this.languageContainer.nativeElement, newLanguage)
 
-    newLanguage.addEventListener('blur', (event:any) => {
-      const value = event.target.value
-      this.language.push(value)
-    })
+      newLanguage.addEventListener('blur', (event:any) => {
+        const value = event.target.value
+        this.language.push(value)
+      })
+    }
   }
 
   resumeSubmit(){
@@ -123,19 +133,21 @@ export class Template2Component {
 
   @ViewChild('template') template!:ElementRef
   download(){
-    const data = this.template.nativeElement
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      const data = this.template.nativeElement
 
-    html2canvas(data).then(canvas => {
-      const imgWidth = 208
-      const pageHeight = 295
-      const imgHeight = (canvas.height * imgWidth) / canvas.width
-      const heightLeft = imgHeight
+      html2canvas(data).then(canvas => {
+        const imgWidth = 208
+        const pageHeight = 295
+        const imgHeight = (canvas.height * imgWidth) / canvas.width
+        const heightLeft = imgHeight
 
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const contentDataURL = canvas.toDataURL('image/png')
-      pdf.addImage(contentDataURL, 'png', 0, 0, imgWidth, imgHeight)
-      pdf.save('template.pdf')
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const contentDataURL = canvas.toDataURL('image/png')
+        pdf.addImage(contentDataURL, 'png', 0, 0, imgWidth, imgHeight)
+        pdf.save('template.pdf')
 
-    })
+      })
+    }
   }
 }

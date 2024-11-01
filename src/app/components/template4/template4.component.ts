@@ -1,8 +1,9 @@
-import { Component, ElementRef, inject, RendererFactory2, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, PLATFORM_ID, RendererFactory2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { IData } from '../../core/interfaces/idata';
+import { isPlatformBrowser } from '@angular/common';
 
 interface IExpierence{
   head:string
@@ -19,6 +20,7 @@ interface IExpierence{
 export class Template4Component {
   private readonly _FormBuilder = inject(FormBuilder)
   private readonly _Renderer2 = inject(RendererFactory2).createRenderer(null,null)
+  private readonly _PLATFORM_ID = inject(PLATFORM_ID)
 
   personeData!:IData
 
@@ -47,40 +49,44 @@ export class Template4Component {
 
   @ViewChild('skillsInputs') skillsContainer!:ElementRef
   addSkills(){
-    const newSkill = this._Renderer2.createElement('textarea')
-    this._Renderer2.setAttribute(newSkill, 'placeholder', 'New Skills...')
-    this._Renderer2.addClass(newSkill, 'form-control')
-    this._Renderer2.appendChild(this.skillsContainer.nativeElement, newSkill)
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      const newSkill = this._Renderer2.createElement('textarea')
+      this._Renderer2.setAttribute(newSkill, 'placeholder', 'New Skills...')
+      this._Renderer2.addClass(newSkill, 'form-control')
+      this._Renderer2.appendChild(this.skillsContainer.nativeElement, newSkill)
 
-    newSkill.addEventListener('blur', (event: any) => {
-      const value = event.target.value;
-      this.skills.push(value);
-    });
+      newSkill.addEventListener('blur', (event: any) => {
+        const value = event.target.value;
+        this.skills.push(value);
+      });
+    }
   }
 
   @ViewChild('expierenceInputs') expierenceContainer!:ElementRef
   addExpierence(){
-    const currentIndex = this.expierence.length;
-    const headExp = this._Renderer2.createElement('input')
-    this._Renderer2.setAttribute(headExp, 'placeholder', 'Header New Expierence...')
-    this._Renderer2.setAttribute(headExp, 'type', 'text')
-    this._Renderer2.addClass(headExp, 'form-control')
+    if(isPlatformBrowser(this._PLATFORM_ID)){
+      const currentIndex = this.expierence.length;
+      const headExp = this._Renderer2.createElement('input')
+      this._Renderer2.setAttribute(headExp, 'placeholder', 'Header New Expierence...')
+      this._Renderer2.setAttribute(headExp, 'type', 'text')
+      this._Renderer2.addClass(headExp, 'form-control')
 
-    const descExp = this._Renderer2.createElement('textarea')
-    this._Renderer2.setAttribute(descExp, 'placeholder', 'New Expierence...')
-    this._Renderer2.addClass(descExp, 'form-control')
+      const descExp = this._Renderer2.createElement('textarea')
+      this._Renderer2.setAttribute(descExp, 'placeholder', 'New Expierence...')
+      this._Renderer2.addClass(descExp, 'form-control')
 
-    this._Renderer2.appendChild(this.expierenceContainer.nativeElement, headExp)
-    this._Renderer2.appendChild(this.expierenceContainer.nativeElement, descExp)
+      this._Renderer2.appendChild(this.expierenceContainer.nativeElement, headExp)
+      this._Renderer2.appendChild(this.expierenceContainer.nativeElement, descExp)
 
-    headExp.addEventListener('input', () => {
-      this.updateFormData(currentIndex, headExp.value, descExp.value);
-    });
-    descExp.addEventListener('input', () => {
-      this.updateFormData(currentIndex, headExp.value, descExp.value);
-    });
+      headExp.addEventListener('input', () => {
+        this.updateFormData(currentIndex, headExp.value, descExp.value);
+      });
+      descExp.addEventListener('input', () => {
+        this.updateFormData(currentIndex, headExp.value, descExp.value);
+      });
 
-    this.expierence.push({ head: '', desc: '' });
+      this.expierence.push({ head: '', desc: '' });
+    }
   }
 
   updateFormData(i:number, headExp:string, descExp:string){
@@ -92,15 +98,17 @@ export class Template4Component {
 
   @ViewChild('languageInputs') languageContainer!:ElementRef
   addLanguage(){
-    const newLanguage = this._Renderer2.createElement('textarea')
-    this._Renderer2.setAttribute(newLanguage, 'placeholder', 'New Language...')
-    this._Renderer2.addClass(newLanguage, 'form-control')
-    this._Renderer2.appendChild(this.languageContainer.nativeElement, newLanguage)
+    if(isPlatformBrowser(this._PLATFORM_ID)){
+      const newLanguage = this._Renderer2.createElement('textarea')
+      this._Renderer2.setAttribute(newLanguage, 'placeholder', 'New Language...')
+      this._Renderer2.addClass(newLanguage, 'form-control')
+      this._Renderer2.appendChild(this.languageContainer.nativeElement, newLanguage)
 
-    newLanguage.addEventListener('blur', (event:any) => {
-      const value = event.target.value
-      this.language.push(value)
-    })
+      newLanguage.addEventListener('blur', (event:any) => {
+        const value = event.target.value
+        this.language.push(value)
+      })
+    }
   }
 
   resumeSubmit():void{
@@ -118,19 +126,21 @@ export class Template4Component {
 
   @ViewChild('template') template!:ElementRef
   download(){
-    const data = this.template.nativeElement
+    if(isPlatformBrowser(this._PLATFORM_ID)){
+      const data = this.template.nativeElement
 
-    html2canvas(data).then(canvas => {
-      const imgWidth = 208
-      const pageHeight = 295
-      const imgHeight = (canvas.height * imgWidth) / canvas.width
-      const heightLeft = imgHeight
+      html2canvas(data).then(canvas => {
+        const imgWidth = 208
+        const pageHeight = 295
+        const imgHeight = (canvas.height * imgWidth) / canvas.width
+        const heightLeft = imgHeight
 
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const contentDataURL = canvas.toDataURL('image/png')
-      pdf.addImage(contentDataURL, 'png', 0, 0, imgWidth, imgHeight)
-      pdf.save('template.pdf')
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const contentDataURL = canvas.toDataURL('image/png')
+        pdf.addImage(contentDataURL, 'png', 0, 0, imgWidth, imgHeight)
+        pdf.save('template.pdf')
 
-    })
+      })
+    }
   }
 }
